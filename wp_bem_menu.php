@@ -51,7 +51,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 
         $class_names = implode( ' ', $classes );
 
-        // Add a ul wrapper to sub nav and a double indent
+        // Add a ul wrapper to sub nav
 
         $output .= "\n" . $indent . '<ul class="'. $class_names .'">' ."\n";
     }
