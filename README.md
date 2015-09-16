@@ -7,11 +7,16 @@ To use simply drop the contents of wp_bem_menu.php into your functions.php file.
 
 ## Usage
 
-First you need to create a menu in wp-admin and make sure it is assigned a theme location. Then insert the following function into your theme. The first argument is the theme location (as defined in wp-admin) and the second argument is the class prefix you would like to use for this particular menu.
+First you need to create a menu in wp-admin and make sure it is assigned a theme location. Then insert the following function into your theme. The first argument is the theme location (as defined in wp-admin) and the second argument is the class prefix you would like to use for this particular menu. The class prefix will be applied to the menu `<ul>` and every child `<li>` as the 'block'. The third optional argument accepts either an `array()` or a `string`.
 
 ```php
-<?php bem_menu('menu_location', 'my-menu'); ?>
+<?php bem_menu('menu_location', 'my-menu', 'my-menu--my-modifier'); ?>
 ```
+If you want to add multiple modifiers to the `<ul>` use an array e.g:
+```php
+<?php bem_menu('menu_location', 'my-menu', array('my-menu--my-modifier','my-menu--my-other-modifier')) ?>
+```
+Please note that these modifier classes are not inherited by descendants. this is by design to avoid bloated navigation markup. You can still target children of a specific modifier like so: `.my-menu--my-modifier .my-menu__item{}`
 
 ## Css classes
 
@@ -63,8 +68,3 @@ $this->item_css_classes = array(
 );
 
 ```
-
-
-
-
-
