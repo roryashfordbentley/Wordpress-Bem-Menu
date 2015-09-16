@@ -7,7 +7,13 @@ To use simply drop the contents of wp_bem_menu.php into your functions.php file.
 
 ## Usage
 
-First you need to create a menu in wp-admin and make sure it is assigned a theme location. Then insert the following function into your theme. The first argument is the theme location (as defined in wp-admin) and the second argument is the class prefix you would like to use for this particular menu. The class prefix will be applied to the menu `<ul>` and every child `<li>` as the 'block'. The third optional argument accepts either an `array()` or a `string`.
+First you need to register a nav menu in your themes `functions.php` file.
+
+`register_nav_menu('my_menu', 'primary site menu');`
+
+You also need to create a menu in wp-admin and make sure it is assigned a theme location that matches your registered nav menu above.
+
+Then insert the following function into your theme. The first argument is the theme location (as defined in wp-admin) and the second argument is the class prefix you would like to use for this particular menu. The class prefix will be applied to the menu `<ul>` and every child `<li>` as the 'block'. The third optional argument accepts either an `array()` or a `string`.
 
 ```php
 <?php bem_menu('menu_location', 'my-menu', 'my-menu--my-modifier'); ?>
