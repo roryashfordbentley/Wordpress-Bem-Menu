@@ -24,6 +24,15 @@ If you want to add multiple modifiers to the `<ul>` use an array e.g:
 ```
 Please note that these modifier classes are not inherited by descendants. this is by design to avoid bloated navigation markup. You can still target children of a specific modifier like so: `.my-menu--my-modifier .my-menu__item{}`
 
+## html output 
+```html
+<ul class="my-menu my-menu--mobile">
+    <li class="my-menu__item  my-menu__item--active  my-menu__item--78"><a href="#">Home</a></li>
+    <li class="my-menu__item  my-menu__item--79"><a href="#">Page 2</a></li>
+    <li class="my-menu__item  my-menu__item--84"><a href="#">PAge 3</a></li>
+</ul>
+```
+
 ## Css classes
 
 The syntax is very simple, all menu items are logically grouped by depth to avoid some of the nesting issues of the standard output.
