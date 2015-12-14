@@ -126,9 +126,11 @@ function bem_menu($location = "main_menu", $css_class_prefix = 'main-menu', $css
     $args = array(
         'theme_location'    => $location,
         'container'         => false,
-        'items_wrap'        => '<ul class="' . $css_class_prefix . ' ' . $modifiers . '">%3$s</ul>',
+        'menu_class'        => $css_class_prefix,
+        'items_wrap'        => '<ul class="' . $modifiers . '">%3$s</ul>',
         'walker'            => new walker_texas_ranger($css_class_prefix, true)
     );
+
     
     if (has_nav_menu($location)){
         return wp_nav_menu($args);
