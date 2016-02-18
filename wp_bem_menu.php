@@ -28,13 +28,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
     // Check for children
 
     function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ){
-        
-        //echo '<pre>';
-        //print_r($element->classes[0]);
-        //echo '</pre>';
-
-        $this->user_class = $element->classes[0];
-        
+                
         $id_field = $this->db_fields['id'];
         
         if ( is_object( $args[0] ) ) {
@@ -74,11 +68,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
         
         $indent = ( $depth > 0 ? str_repeat( "    ", $depth ) : '' ); // code indent
 
-        // item classes
-
         $prefix = $this->css_class_prefix;
-        $user_class_prefix = $this->user_class;
-
         $suffix = $this->item_css_class_suffixes;
 
         $item_classes =  array(
@@ -88,8 +78,8 @@ class walker_texas_ranger extends Walker_Nav_Menu {
             'active_parent_class'   => in_array("current-menu-parent",$item->classes) ? $prefix . $suffix['parent_of_active_item'] : '',
             'active_ancestor_class' => in_array("current-menu-ancestor",$item->classes) ? $prefix . $suffix['ancestor_of_active_item'] : '',
             'depth_class'           => $depth >=1 ? $prefix . $suffix['sub_menu_item'] . ' ' . $prefix . $suffix['sub_menu'] . '--' . $depth . '__item' : '',
-            'item_id_class'         => $prefix . '__item--'. $item->ID,
-            'user_class'            => $this->user_class !== '' ? $prefix . '__item--'. $this->user_class : ''
+            'item_id_class'         => $prefix . '__item--'. $item->object_id,
+            'user_class'            => $item->classes[0] !== '' ? $prefix . '__item--'. $item->classes[0] : ''
         );
 
         // convert array to string excluding any empty values
