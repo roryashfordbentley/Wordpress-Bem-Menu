@@ -89,7 +89,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
             'active_ancestor_class' => in_array("current-menu-ancestor",$item->classes) ? $prefix . $suffix['ancestor_of_active_item'] : '',
             'depth_class'           => $depth >=1 ? $prefix . $suffix['sub_menu_item'] . ' ' . $prefix . $suffix['sub_menu'] . '--' . $depth . '__item' : '',
             'item_id_class'         => $prefix . '__item--'. $item->ID,
-            'user_class'            => $prefix . '__item--'. $this->user_class
+            'user_class'            => $this->user_class !== '' ? $prefix . '__item--'. $this->user_class : ''
         );
 
         // convert array to string excluding any empty values
