@@ -83,3 +83,7 @@ $this->item_css_classes = array(
 );
 
 ```
+
+## Custom Css classes set in wp-admin>menus
+
+If you add a custom class to a menu item in wp-admin Wordpress-Bem-Menu now adds the class to the item converted to a BEM modifier. If for example you add a class of `my-class` to a menu item the output would be `<li class="main-menu  main-menu__item  main-menu__item--my-class"></li>` 

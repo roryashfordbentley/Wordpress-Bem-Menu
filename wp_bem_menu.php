@@ -13,21 +13,22 @@ class walker_texas_ranger extends Walker_Nav_Menu {
         
         // Define menu item names appropriately
 
-        $this->item_css_classes = array(
-            'item'                      => $this->css_class_prefix . '__item',
-            'parent_item'               => $this->css_class_prefix . '__item--parent',
-            'active_item'               => $this->css_class_prefix . '__item--active',
-            'parent_of_active_item'     => $this->css_class_prefix . '__item--parent--active',
-            'ancestor_of_active_item'   => $this->css_class_prefix . '__item--ancestor--active',
-            'sub_menu'                  => $this->css_class_prefix . '__sub-menu',
-            'sub_menu_item'             => $this->css_class_prefix . '__sub-menu__item',
+        $this->item_css_class_suffixes = array(
+            'item'                      => '__item',
+            'parent_item'               => '__item--parent',
+            'active_item'               => '__item--active',
+            'parent_of_active_item'     => '__item--parent--active',
+            'ancestor_of_active_item'   => '__item--ancestor--active',
+            'sub_menu'                  => '__sub-menu',
+            'sub_menu_item'             => '__sub-menu__item'
         );
+
     }
 
     // Check for children
 
     function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ){
-        
+                
         $id_field = $this->db_fields['id'];
         
         if ( is_object( $args[0] ) ) {
@@ -44,9 +45,12 @@ class walker_texas_ranger extends Walker_Nav_Menu {
         
         $indent = str_repeat("\t", $real_depth);
 
+        $prefix = $this->css_class_prefix;
+        $suffix = $this->item_css_class_suffixes;
+
         $classes = array(
-            $this->item_css_classes['sub_menu'],
-            $this->item_css_classes['sub_menu']. '--' . $real_depth
+            $prefix . $suffix['sub_menu'],
+            $prefix . $suffix['sub_menu']. '--' . $real_depth
         );
 
         $class_names = implode( ' ', $classes );
@@ -64,24 +68,24 @@ class walker_texas_ranger extends Walker_Nav_Menu {
         
         $indent = ( $depth > 0 ? str_repeat( "    ", $depth ) : '' ); // code indent
 
-        // item classes
+        $prefix = $this->css_class_prefix;
+        $suffix = $this->item_css_class_suffixes;
 
-        $item_classes = array(
-            'item_class'            => $depth == 0 ? $this->item_css_classes['item'] : '',
-            'parent_class'          => $args->has_children ? $parent_class = $this->item_css_classes['parent_item'] : '',
-            'active_page_class'     => in_array("current-menu-item",$item->classes) ? $this->item_css_classes['active_item'] : '',
-            'active_parent_class'   => in_array("current-menu-parent",$item->classes) ? $this->item_css_classes['parent_of_active_item'] : '',
-            'active_ancestor_class' => in_array("current-menu-ancestor",$item->classes) ? $this->item_css_classes['ancestor_of_active_item'] : '',
-            'depth_class'           => $depth >=1 ? $this->item_css_classes['sub_menu_item'] . ' ' .$this->item_css_classes['sub_menu'] . '--' . $depth . '__item' : '',
-            'item_id_class'         => $this->css_class_prefix . '__item--'. $item->ID
+        $item_classes =  array(
+            'item_class'            => $depth == 0 ? $prefix . $suffix['item'] : '',
+            'parent_class'          => $args->has_children ? $parent_class = $prefix . $suffix['parent_item'] : '',
+            'active_page_class'     => in_array("current-menu-item",$item->classes) ? $prefix . $suffix['active_item'] : '',
+            'active_parent_class'   => in_array("current-menu-parent",$item->classes) ? $prefix . $suffix['parent_of_active_item'] : '',
+            'active_ancestor_class' => in_array("current-menu-ancestor",$item->classes) ? $prefix . $suffix['ancestor_of_active_item'] : '',
+            'depth_class'           => $depth >=1 ? $prefix . $suffix['sub_menu_item'] . ' ' . $prefix . $suffix['sub_menu'] . '--' . $depth . '__item' : '',
+            'item_id_class'         => $prefix . '__item--'. $item->object_id,
+            'user_class'            => $item->classes[0] !== '' ? $prefix . '__item--'. $item->classes[0] : ''
         );
 
         // convert array to string excluding any empty values
-
         $class_string = implode("  ", array_filter($item_classes));
 
         // Add the classes to the wrapping <li>
-
         $output .= $indent . '<li class="' . $class_string . '">';
 
         // link attributes
