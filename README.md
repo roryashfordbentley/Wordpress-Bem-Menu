@@ -73,13 +73,13 @@ BEM syntax is very subjective and different developers use different conventions
 
 ```php
 $this->item_css_classes = array(
-    'item'                      => $this->css_class_prefix . '__item',
-    'parent_item'               => $this->css_class_prefix . '__item--parent',
-    'active_item'               => $this->css_class_prefix . '__item--active',
-    'parent_of_active_item'     => $this->css_class_prefix . '__item--parent--active',
-    'ancestor_of_active_item'   => $this->css_class_prefix . '__item--ancestor--active',
-    'sub_menu'                  => $this->css_class_prefix . '__sub-menu',
-    'sub_menu_item'             => $this->css_class_prefix . '__sub-menu__item',
+    'item'                      => '__item',
+    'parent_item'               => '__item--parent',
+    'active_item'               => '__item--active',
+    'parent_of_active_item'     => '__item--parent--active',
+    'ancestor_of_active_item'   => '__item--ancestor--active',
+    'sub_menu'                  => '__sub-menu',
+    'sub_menu_item'             => '__sub-menu__item'
 );
 
 ```
