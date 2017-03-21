@@ -56,6 +56,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 
         $class_names = implode( ' ', $classes );
 
+
         // Add a ul wrapper to sub nav
 
         $output .= "\n" . $indent . '<ul class="'. $class_names .'">' ."\n";
@@ -72,6 +73,12 @@ class walker_texas_ranger extends Walker_Nav_Menu {
         $prefix = $this->css_class_prefix;
         $suffix = $this->item_css_class_suffixes;
 
+        // Custom Classes
+        
+        $custom_classes = $item->classes;
+        $custom_classes = array_filter($custom_classes, array($this, 'remove_normal_classes'));
+        array_walk($custom_classes, array($this,'prep_user_class'));
+
         // Item classes
         $item_classes =  array(
             'item_class'            => $depth == 0 ? $prefix . $suffix['item'] : '',
@@ -81,7 +88,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
             'active_ancestor_class' => in_array("current-menu-ancestor",$item->classes) ? $prefix . $suffix['ancestor_of_active_item'] : '',
             'depth_class'           => $depth >=1 ? $prefix . $suffix['sub_menu_item'] . ' ' . $prefix . $suffix['sub_menu'] . '--' . $depth . '__item' : '',
             'item_id_class'         => $prefix . '__item--'. $item->object_id,
-            'user_class'            => $item->classes[0] !== '' ? $prefix . '__item--'. $item->classes[0] : ''
+            'user_class'            => implode(' ', $custom_classes)
         );
 
         // convert array to string excluding any empty values
@@ -105,7 +112,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
         $attributes .= ! empty($item->xfn)        ? ' rel="'    . esc_attr($item->xfn       ) .'"' : '';
         $attributes .= ! empty($item->url)        ? ' href="'   . esc_attr($item->url       ) .'"' : '';
 
-        // Creatre link markup
+        // Create link markup
         $item_output = $args->before;
         $item_output .= '<a' . $attributes . ' ' . $link_class_output . '>';
         $item_output .=     $args->link_before;
@@ -118,7 +125,19 @@ class walker_texas_ranger extends Walker_Nav_Menu {
  
         $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
     }
-    
+
+    // Helpers
+
+    private function remove_normal_classes($x){
+        return !strstr($x, 'menu-item');
+    }
+
+    private function prep_user_class(&$val, $key){
+        $prefix = $this->css_class_prefix;
+        if ($val) {
+            $val = $prefix . '__item--'. $val;
+        }
+    }
 }
 
 /**
