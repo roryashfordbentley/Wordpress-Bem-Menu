@@ -10,11 +10,11 @@ class walker_texas_ranger extends Walker_Nav_Menu {
     function __construct($css_class_prefix) {
 
         $this->css_class_prefix = $css_class_prefix;
-        
+
         // Define menu item names appropriately
 
         $this->item_css_class_suffixes = array(
-            'item'                      => '__item',  
+            'item'                      => '__item',
             'parent_item'               => '__item--parent',
             'active_item'               => '__item--active',
             'parent_of_active_item'     => '__item--parent--active',
@@ -29,21 +29,21 @@ class walker_texas_ranger extends Walker_Nav_Menu {
     // Check for children
 
     function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ){
-                
+
         $id_field = $this->db_fields['id'];
-        
+
         if ( is_object( $args[0] ) ) {
             $args[0]->has_children = !empty( $children_elements[$element->$id_field] );
         }
-        
+
         return parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
-    
+
     }
-    
+
     function start_lvl(&$output, $depth = 1, $args=array()) {
-        
+
         $real_depth = $depth + 1;
-        
+
         $indent = str_repeat("\t", $real_depth);
 
         $prefix = $this->css_class_prefix;
@@ -60,13 +60,13 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 
         $output .= "\n" . $indent . '<ul class="'. $class_names .'">' ."\n";
     }
-  
+
     // Add main/sub classes to li's and links
-     
+
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-        
+
         global $wp_query;
-        
+
         $indent = ( $depth > 0 ? str_repeat( "    ", $depth ) : '' ); // code indent
 
         $prefix = $this->css_class_prefix;
@@ -115,10 +115,10 @@ class walker_texas_ranger extends Walker_Nav_Menu {
         $item_output .= '</a>';
 
         // Filter <li>
- 
+
         $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
     }
-    
+
 }
 
 /**
@@ -129,8 +129,8 @@ class walker_texas_ranger extends Walker_Nav_Menu {
  * @return [type]
  */
 
-function bem_menu($location = "main_menu", $css_class_prefix = 'main-menu', $css_class_modifiers = null){  
-    
+function bem_menu($location = "main_menu", $css_class_prefix = 'main-menu', $css_class_modifiers = null, $params = null){
+
     // Check to see if any css modifiers were supplied
     if($css_class_modifiers){
 
@@ -144,13 +144,18 @@ function bem_menu($location = "main_menu", $css_class_prefix = 'main-menu', $css
         $modifiers = '';
     }
 
-    $args = array(
-        'theme_location'    => $location,
-        'container'         => false,
-        'items_wrap'        => '<ul class="' . $css_class_prefix . ' ' . $modifiers . '">%3$s</ul>',
-        'walker'            => new walker_texas_ranger($css_class_prefix, true)
-    );
-    
+    if (is_array($params)) {
+        $args = $params;
+    } else {
+        $args = array(
+            'container' => false
+        );
+    }
+
+    $args['theme_location']    = $location;
+    $args['items_wrap']        = '<ul class="' . $css_class_prefix . '__list ' . $modifiers . '">%3$s</ul>';
+    $args['walker']            = new walker_texas_ranger($css_class_prefix, true);
+
     if (has_nav_menu($location)){
         return wp_nav_menu($args);
     }else{
