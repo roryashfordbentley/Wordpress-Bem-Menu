@@ -152,8 +152,14 @@ function bem_menu($location = "main_menu", $css_class_prefix = 'main-menu', $css
         );
     }
 
+    if (isset($args['container'])) {
+        $menu_class = $css_class_prefix . '__list';
+    } else {
+        $menu_class = $css_class_prefix . '__list';
+    }
+
     $args['theme_location']    = $location;
-    $args['items_wrap']        = '<ul class="' . $css_class_prefix . '__list ' . $modifiers . '">%3$s</ul>';
+    $args['items_wrap']        = '<ul class="' . $menu_class . ' ' . $modifiers . '">%3$s</ul>';
     $args['walker']            = new walker_texas_ranger($css_class_prefix, true);
 
     if (has_nav_menu($location)){
