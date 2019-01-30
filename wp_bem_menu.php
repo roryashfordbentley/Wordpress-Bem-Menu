@@ -5,6 +5,11 @@
  * Inserts some BEM naming sensibility into WordPress menus
  */
 
+ // Skip loading the walker if not in a WordPress context
+if ( ! defined('WPINC') ) {
+	return;
+  }
+
 class walker_texas_ranger extends Walker_Nav_Menu {
 
 	public function __construct( $css_class_prefix ) {
@@ -19,8 +24,8 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 			'active_item'             => '__item--active',
 			'parent_of_active_item'   => '__item--parent--active',
 			'ancestor_of_active_item' => '__item--ancestor--active',
-			'sub_menu'                => '__sub-menu',
-			'sub_menu_item'           => '__sub-menu-item',
+			'sub_menu'                => '-sub',
+			'sub_menu_item'           => '-sub__item',
 			'link'                    => '__link',
 		);
 
@@ -40,7 +45,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 
 	}
 
-	public function start_lvl( &$output, $depth = 1, $args = array() ) { 
+	public function start_lvl( &$output, $depth = 1, $args = array() ) {
 
 		$real_depth = $depth + 1;
 
@@ -51,7 +56,6 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 
 		$classes = array(
 			$prefix . $suffix['sub_menu'],
-			$prefix . $suffix['sub_menu'] . '--' . $real_depth,
 		);
 
 		$class_names = implode( ' ', $classes );
@@ -63,7 +67,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 
 	// Add main/sub classes to li's and links
 
-	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) { 
+	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 		global $wp_query;
 
 		$indent = ( $depth > 0 ? str_repeat( '    ', $depth ) : '' ); // code indent
@@ -98,8 +102,8 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 			'active_page_class'     => $active_page_class,
 			'active_parent_class'   => $active_parent_class,
 			'active_ancestor_class' => $active_ancestor_class,
-			'depth_class'           => $depth >= 1 ? $prefix . $suffix['sub_menu_item'] . ' ' . $prefix . $suffix['sub_menu'] . '--' . $depth . '__item' : '',
-			'item_id_class'         => $prefix . '__item--' . $item->object_id,
+			'depth_class'           => $depth >= 1 ? $prefix . $suffix['sub_menu_item'] : '',
+			// 'item_id_class'         => $prefix . '__item--' . $item->object_id,
 			'user_class'            => $user_class,
 		);
 
@@ -112,7 +116,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 		// Link classes
 		$link_classes = array(
 			'item_link'   => 0 === $depth ? $prefix . $suffix['link'] : '',
-			'depth_class' => $depth >= 1 ? $prefix . $suffix['sub_menu'] . $suffix['link'] . '  ' . $prefix . $suffix['sub_menu'] . '--' . $depth . $suffix['link'] : '',
+			'depth_class' => $depth >= 1 ? $prefix . $suffix['sub_menu'] . $suffix['link'] : '',
 		);
 
 		$link_class_string = implode( '  ', array_filter( $link_classes ) );
