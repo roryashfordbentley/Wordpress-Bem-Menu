@@ -63,7 +63,7 @@ The syntax is very simple, all menu items are logically grouped by depth to avoi
 .my-menu__sub-menu{}
 
 /* sub menu item */
-.my-menu__sub-menu__item{}
+.my-menu__sub-menu-item{}
 
 /* sub menu link */
 .my-menu__sub-menu__link{}
