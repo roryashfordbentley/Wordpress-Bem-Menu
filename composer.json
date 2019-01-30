@@ -1,0 +1,7 @@
+{
+	"name": "level-level/Wordpress-Bem-Menu",
+	"type": "library",
+	"description": "Better menu implementation for Wordpress using BEM syntax",
+	"version": "1.0.0",
+	"require": {}
+}
