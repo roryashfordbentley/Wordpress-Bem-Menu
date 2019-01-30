@@ -20,7 +20,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 			'parent_of_active_item'   => '__item--parent--active',
 			'ancestor_of_active_item' => '__item--ancestor--active',
 			'sub_menu'                => '__sub-menu',
-			'sub_menu_item'           => '__sub-menu__item',
+			'sub_menu_item'           => '__sub-menu-item',
 			'link'                    => '__link',
 		);
 
