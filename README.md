@@ -41,9 +41,6 @@ The syntax is very simple, all menu items are logically grouped by depth to avoi
 /* Top level items */
 .my-menu__item{}
 
-/* Specific item (where x = post_id) */
-.my-menu__item--x{}
-
 /* Parent item */
 .my-menu__item--parent{}
 
@@ -60,16 +57,14 @@ The syntax is very simple, all menu items are logically grouped by depth to avoi
 .my-menu__link{}
 
 /* sub menu class */
-.my-menu__sub-menu{}
+.my-menu-sub{}
 
 /* sub menu item */
-.my-menu__sub-menu-item{}
+.my-menu-sub__item{}
 
 /* sub menu link */
-.my-menu__sub-menu__link{}
+.my-menu-sub__link{}
 
-/* Specific sub menu (where x is the menu depth) */
-.my-menu__sub-menu--x{}
 
 ```
 
@@ -85,8 +80,8 @@ $this->item_css_classes = array(
     'parent_of_active_item'     => '__item--parent--active',
     'ancestor_of_active_item'   => '__item--ancestor--active',
     'link'                      => '__link',
-    'sub_menu'                  => '__sub-menu',
-    'sub_menu_item'             => '__sub-menu__item'
+    'sub_menu'                  => '-sub',
+    'sub_menu_item'             => '-sub__item'
 );
 
 ```
