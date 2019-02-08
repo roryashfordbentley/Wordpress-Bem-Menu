@@ -1,8 +1,7 @@
 {
-	"name": "level-level/Wordpress-Bem-Menu",
+	"name": "level-level/wordpress-bem-menu",
 	"type": "library",
 	"description": "Better menu implementation for Wordpress using BEM syntax",
-	"version": "1.0.2",
 	"require": {},
 	"autoload": {
 		"files": ["wp_bem_menu.php"]
