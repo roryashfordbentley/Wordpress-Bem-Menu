@@ -84,7 +84,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 		if ( is_array( $item->classes ) ) {
 			$active_page_class     = in_array( 'current-menu-item', $item->classes, true ) ? $prefix . $suffix['active_item'] : '';
 			$active_parent_class   = in_array( 'current-menu-parent', $item->classes, true ) ? $prefix . $suffix['parent_of_active_item'] : '';
-			$active_ancestor_class = in_array( 'current-menu-ancestor', $item->classes, true ) ? $prefix . $suffix['ancestor_of_active_item'] : '';
+			$active_ancestor_class = in_array( 'current-menu-ancestor', $item->classes, true ) || in_array( 'current-page-ancestor', $item->classes, true )  ? $prefix . $suffix['ancestor_of_active_item'] : '';
 			if ( isset( $item->classes[0] ) ) {
 				$user_class = '' !== $item->classes[0] ? $prefix . '__item--' . $item->classes[0] : '';
 			}
