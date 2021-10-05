@@ -128,6 +128,8 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 		$attributes .= ! empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) . '"' : '';
 		$attributes .= ! empty( $item->url ) ? ' href="' . esc_attr( $item->url ) . '"' : '';
 
+		$attributes = apply_filters( 'bem_menu_link_attributes', $attributes, $item );
+
 		// Create link markup
 		if ( is_object( $args ) ) {
 			$item_output  = $args->before;
