@@ -33,7 +33,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 
 	// Check for children
 
-	public function display_element( $element, &$children_elements, $max_depth, $depth = 0, $args, &$output ) {
+	public function display_element( $element, &$children_elements, $max_depth, $depth = 0, $args = array(), &$output = '' ) {
 
 		$id_field = $this->db_fields['id'];
 
