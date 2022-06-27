@@ -127,6 +127,7 @@ class walker_texas_ranger extends Walker_Nav_Menu {
 		$attributes .= ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) . '"' : '';
 		$attributes .= ! empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) . '"' : '';
 		$attributes .= ! empty( $item->url ) ? ' href="' . esc_attr( $item->url ) . '"' : '';
+		$attributes .= ! empty( $active_page_class ) ? ' aria-current="page"' : '';
 
 		// Add 'noopener' to external links without a set xfn
 		if ( empty( $item->xfn ) && ! empty( $item->target ) ) {
