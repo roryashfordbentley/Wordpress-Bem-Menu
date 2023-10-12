@@ -6,7 +6,7 @@
  */
 
  // Skip loading the walker if not in a WordPress context
-if ( ! defined('WPINC') ) {
+if ( ! defined('WPINC') || ! class_exists( 'Walker_Nav_Menu' ) ) {
 	return;
   }
 
